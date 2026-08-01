@@ -1,0 +1,33 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiskCleaner.Core", "DiskCleaner.Core\DiskCleaner.Core.csproj", "{A3686814-B462-4122-969F-7B67D9F52E9F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiskCleaner.Console", "DiskCleaner.Console\DiskCleaner.Console.csproj", "{BB424178-38E9-4405-AA4C-7F707380504E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiskCleaner.Gui", "DiskCleaner.Gui\DiskCleaner.Gui.csproj", "{DF920E80-670D-498A-9F1B-10E2833F428E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A3686814-B462-4122-969F-7B67D9F52E9F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A3686814-B462-4122-969F-7B67D9F52E9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A3686814-B462-4122-969F-7B67D9F52E9F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A3686814-B462-4122-969F-7B67D9F52E9F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BB424178-38E9-4405-AA4C-7F707380504E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB424178-38E9-4405-AA4C-7F707380504E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB424178-38E9-4405-AA4C-7F707380504E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB424178-38E9-4405-AA4C-7F707380504E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF920E80-670D-498A-9F1B-10E2833F428E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF920E80-670D-498A-9F1B-10E2833F428E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF920E80-670D-498A-9F1B-10E2833F428E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF920E80-670D-498A-9F1B-10E2833F428E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
