@@ -1,0 +1,83 @@
+# Пуска се, когато пуснеш таг като v1.0.0:
+#   git tag v1.0.0
+#   git push origin v1.0.0
+# Компилира програмата, прави инсталатора и го качва в GitHub Releases.
+
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+env:
+  # Смени, ако .csproj файлът ти е на друго място
+  PROJECT_PATH: src/DiskCleaner.Gui/DiskCleaner.Gui.csproj
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Изтегли кода
+        uses: actions/checkout@v4
+
+      - name: Инсталирай .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          # SDK 10 компилира и проекти за net8.0/net9.0
+          dotnet-version: "10.0.x"
+
+      - name: Вземи версията от тага
+        id: ver
+        shell: pwsh
+        run: |
+          $v = "${{ github.ref_name }}".TrimStart('v')
+          "version=$v" >> $env:GITHUB_OUTPUT
+
+      - name: Компилирай (един .exe, без нужда от инсталиран .NET)
+        shell: pwsh
+        run: >
+          dotnet publish $env:PROJECT_PATH
+          -c Release
+          -r win-x64
+          --self-contained true
+          -p:PublishSingleFile=true
+          -p:IncludeNativeLibrariesForSelfExtract=true
+          -p:Version=${{ steps.ver.outputs.version }}
+          -o publish
+
+      - name: Инсталирай Inno Setup
+        shell: pwsh
+        run: choco install innosetup -y --no-progress
+
+      - name: Направи инсталатора
+        shell: pwsh
+        run: >
+          & "C:\Program Files (x86)\Inno Setup 6\ISCC.exe"
+          /DMyAppVersion=${{ steps.ver.outputs.version }}
+          installer\DiskCleanup.iss
+
+      - name: SHA-256 хеш (за доверие на сайта)
+        id: hash
+        shell: pwsh
+        run: |
+          $h = (Get-FileHash output\DiskCleanup-Setup.exe -Algorithm SHA256).Hash.ToLower()
+          "$h  DiskCleanup-Setup.exe" | Out-File -Encoding ascii output\DiskCleanup-Setup.exe.sha256
+          "sha=$h" >> $env:GITHUB_OUTPUT
+
+      - name: Качи в GitHub Releases
+        uses: softprops/action-gh-release@v2
+        with:
+          name: Disk Cleanup ${{ steps.ver.outputs.version }}
+          body: |
+            **SHA-256:** `${{ steps.hash.outputs.sha }}`
+
+            Windows 10/11 (64-bit). Не изисква инсталиран .NET.
+          generate_release_notes: true
+          files: |
+            output/DiskCleanup-Setup.exe
+            output/DiskCleanup-Setup.exe.sha256

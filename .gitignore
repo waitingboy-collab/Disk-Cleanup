@@ -1,14 +1,12 @@
-## .NET build artifacts
+# .NET
 bin/
 obj/
-publish-gui/
-publish-console/
-
-## Visual Studio
-.vs/
+publish/
+output/
 *.user
 *.suo
-
-## Rider / VS Code
-.idea/
+.vs/
 .vscode/
+*.log
+appsettings.Development.json
+.env
